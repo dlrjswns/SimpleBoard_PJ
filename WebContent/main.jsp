@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList,model.BoardVO"%>
+<jsp:useBean id="datas" scope="request" class="java.util.ArrayList"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,10 +13,10 @@
 		<th>글 번호</th><th>글 제목</th><th>작성자</th>
 	</tr>
 	<%
-		for(){
+		for(BoardVO v:(ArrayList<BoardVO>)datas){
 	%>
 	<tr>
-		<td></td><td></td><td></td>
+		<td><%=v.getBid()%></td><td><%=v.getTitle()%></td><td><%=v.getWriter()%></td>
 	</tr>
 	<%
 		}
