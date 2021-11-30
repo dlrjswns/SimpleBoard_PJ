@@ -7,6 +7,7 @@ create table board(
 	content varchar(50) not null
 );
 
+select * from board orderby bid desc;
 select * from board;
 
 insert into board values(1, '작성자', '제목', '내용');
