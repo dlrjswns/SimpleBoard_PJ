@@ -9,20 +9,33 @@
 </head>
 <body>
 
+<%
+      //System.out.println("datas상태: "+datas);
+      //System.out.println("datas의 크기: "+datas.size());
+      if(datas.size()==0){
+         %>
+         <img alt="티모 이모티콘" src="image/timo.jpg">
+         <%
+      }
+      else{
+%>
 <table border="1">
-	<tr>
-		<th>글 번호</th><th>글 제목</th><th>작성자</th>
-	</tr>
-	<%
-		for(BoardVO v:(ArrayList<BoardVO>)datas){
-	%>
-	<tr>
-		<td><a href="controller.jsp?action=board&bid=<%=v.getBid()%>"><%=v.getBid()%></a></td><td><%=v.getTitle()%></td><td><%=v.getWriter()%></td>
-	</tr>
-	<%
-		}
-	%>
+   <tr>
+      <th>글 번호</th><th>글 제목</th><th>작성자</th>
+   </tr>
+   <%
+      for(BoardVO v:(ArrayList<BoardVO>)datas){
+   %>
+   <tr>
+      <td><a href="controller.jsp?action=board&bid=<%=v.getBid()%>"><%=v.getBid()%></a></td><td><%=v.getTitle()%></td><td><%=v.getWriter()%></td>
+   </tr>
+   <%
+      }
+   %>
 </table>
+<%
+   }
+%>
 
 <hr>
 
