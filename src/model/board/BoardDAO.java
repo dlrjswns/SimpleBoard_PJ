@@ -1,4 +1,4 @@
-package model;
+package model.board;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,13 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import model.common.JDBCUtil;
+
 public class BoardDAO {
 	// 1. DBMS와의 연동(JDBC) => 공통로직 : JDBCUtil클래스에서 불러와 사용
-	// 2. 비즈니스 메서드(CRUD) => 각각의 DAO마다 사용하는 로직
-	
-	// 1) 코드의 재사용성 증가
-	// 2) 유지보수 용이
-	// 3) 협업 용이
+		// 2. 비즈니스 메서드(CRUD) => 각각의 DAO마다 사용하는 로직
+		
+		// 1) 코드의 재사용성 증가
+		// 2) 유지보수 용이
+		// 3) 협업 용이
 	Connection conn=null;
 	PreparedStatement pstmt=null;
 	
@@ -40,15 +42,13 @@ public class BoardDAO {
 			}
 			rs.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("selectAll에서 문제발생!");
 		} finally {
 			JDBCUtil.disconnect(pstmt,conn);
 		}
 		return datas;
 	}
-	public BoardVO selectOne(BoardVO vo) {
-				// 인자를 int타입으로 고정 -> 유지보수 불리
-				// title,content,writer,... -> VO를 인자로설정!
+	public BoardVO selectOne(BoardVO vo) { // 인자를 VO객체로 만듦으로써 유지보수가 용이해졌다!
 		conn=JDBCUtil.connect();
 		BoardVO data=null;
 		try {
@@ -64,8 +64,7 @@ public class BoardDAO {
 			}
 			rs.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("selectOne에서 문제발생!");
 		} finally {		
 			JDBCUtil.disconnect(pstmt, conn);
 		}
@@ -80,17 +79,30 @@ public class BoardDAO {
 			pstmt.setString(3, vo.getContent());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("insert에서 문제발생!");
 			return false;
 		} finally {
 			JDBCUtil.disconnect(pstmt, conn);
 		}
 		return true;
 	}
-	/*public boolean update() {
-		
-	}*/
+	public boolean update(BoardVO vo) {
+		conn=JDBCUtil.connect();
+		try {
+			pstmt=conn.prepareStatement(sql_update);
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getWriter());
+			pstmt.setString(3, vo.getContent());
+			pstmt.setInt(4, vo.getBid());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("update에서 문제발생!");
+			return false;
+		} finally {
+			JDBCUtil.disconnect(pstmt,conn);
+		}
+		return true;
+	}
 	public boolean delete(BoardVO vo) {
 		conn=JDBCUtil.connect();
 		try {
@@ -98,8 +110,7 @@ public class BoardDAO {
 			pstmt.setInt(1, vo.getBid());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("delete에서 문제발생!");
 			return false;
 		} finally {
 			JDBCUtil.disconnect(pstmt, conn);

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:useBean id="data" class="model.BoardVO" scope="request" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,22 +22,22 @@
 
 <form action="controller.jsp" method="post" name="formA">
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="bid" value="<%=data.getBid()%>">
+<input type="hidden" name="bid" value="${data.bid}">
 <table border="1">
 	<tr>
-		<td>글 제목</td>
-		<td><input type="text" name="title" value="<%=data.getTitle()%>"></td>
+		<td>제목</td>
+		<td><input type="text" name="title" value="${data.title}"></td>
 	</tr>
 	<tr>
-		<td>글 내용</td>
-		<td><input type="text" name="content" value="<%=data.getContent()%>"></td>
+		<td>내용</td>
+		<td><input type="text" name="content" value="${data.content}"></td>
 	</tr>
 	<tr>
 		<td>작성자</td>
-		<td><input type="text" name="writer" value="<%=data.getWriter()%>"></td>
+		<td><input type="text" name="writer" value="${data.writer}"></td>
 	</tr>
 	<tr>
-		<td colspan="2" align="right"><input type="submit" value="변경">  <input type="button" value="삭제" onClick="del()"></td>
+		<td colspan="2" align="right"><input type="submit" value="변경">   <input type="button" value="삭제" onClick="del()"></td>
 	</tr>
 </table>
 </form>
