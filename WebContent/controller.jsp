@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,model.board.BoardDAO, model.board.BoardVO" %>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
+
 <jsp:useBean id="dao" class="model.board.BoardDAO" />
 <jsp:useBean id="vo" class="model.board.BoardVO" />
 <jsp:setProperty property="*" name="vo"/>
